@@ -10,20 +10,21 @@
     return;
   }
 
-  var find = function (predicate) {
-    var list = this;
-    var length = list.length < 0 ? 0 : list.length;
-
-    if (length === 0) {
-      return undefined;
+  Array.prototype.find = function (predicate) {
+    if (this == null) {
+      throw new TypeError('Array.prototype.find called on null or undefined');
     }
-
     if (typeof predicate !== 'function') {
-      throw new TypeError('Array.find predicate must be a function');
+      throw new TypeError('predicate must be a function');
     }
-
+    var list = Object(this);
+    // >>> (Zero-fill right shift) allows indexOf to be called on array-like objects that might have weird length properties.
+    // eg. var fakeArray = { length: -3, '0': true, '1': false, '2': null };
+    var length = list.length >>> 0;
     var thisArg = arguments[1];
-    for (var i = 0, value; i < length; i++) {
+    var value;
+
+    for (var i = 0; i < length; i++) {
       value = list[i];
       if (predicate.call(thisArg, value, i, list)) {
         return value;
@@ -31,21 +32,4 @@
     }
     return undefined;
   };
-
-  if (Object.defineProperty) {
-    try {
-      Object.defineProperty(Array.prototype, 'find', {
-        value: find,
-        configurable: true,
-        enumerable: false,
-        writable: true
-      });
-    } catch (e) {
-      console.log('Error while using Objec.defineProperty');
-    }
-
-    if (!Array.prototype.find) {
-      Array.prototype.find = find;
-    }
-  }
 })();
