@@ -1,5 +1,5 @@
 # Simple polyfill for array.find() from ES6
-Just wanted to write a poyfill... that's it :)
+Just wanted to write a polyfill... that's it :)
 
 ###Shim
 A shim is a library that brings a new API to an older environment, using only the means of that environment.
