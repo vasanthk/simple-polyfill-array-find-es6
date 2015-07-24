@@ -1,5 +1,5 @@
 /**
- * Polyfill for array find()
+ * Polyfill for ES6's Array.find()
  *
  * Array.prototype.find(predicate, thisArg?)
  * returns the first array element for which the callback predicate returns true. If there is no such element, it returns undefined.
